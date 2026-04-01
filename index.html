@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Alert — Action Required</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-primary: #006837;
+    --green-dark:    #004d28;
+    --green-light:   #EDF5F0;
+    --gold-primary:  #C8962A;
+    --red-alert:     #C0392B;
+    --red-light:     #FDF0EF;
+    --white:         #FFFFFF;
+    --off-white:     #F5F5F0;
+    --gray-light:    #E8E8E3;
+    --gray-medium:   #888880;
+    --gray-dark:     #1A1A1A;
+    --font-display:  'Montserrat', sans-serif;
+    --font-body:     'Open Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--off-white); color: var(--gray-dark); min-height: 100vh; }
+
+  /* HEADER */
+  .header {
+    background: var(--green-primary);
+    height: 68px;
+    display: flex;
+    align-items: center;
+    padding: 0 48px;
+    border-bottom: 3px solid var(--green-dark);
+  }
+  .header img { height: 36px; display: block; }
+  .header-wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--white);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .header-wordmark span { font-weight: 300; opacity: 0.75; }
+
+  /* ALERT BANNER */
+  .alert-banner {
+    background: var(--red-alert);
+    color: var(--white);
+    text-align: center;
+    padding: 12px 24px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .blink {
+    width: 8px; height: 8px;
+    background: var(--white);
+    border-radius: 50%;
+    animation: blink 1s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.15} }
+
+  /* MAIN */
+  .main { max-width: 700px; margin: 40px auto; padding: 0 24px 64px; }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border-radius: 5px;
+    box-shadow: 0 3px 16px rgba(0,0,0,0.09);
+    padding: 32px 40px;
+    margin-bottom: 20px;
+  }
+  .card.red-border  { border-left: 5px solid var(--red-alert); }
+  .card.gold-border { border-left: 5px solid var(--gold-primary); }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+  .tag.red  { background: var(--red-light);  color: var(--red-alert);    border: 1px solid var(--red-alert); }
+  .tag.gold { background: #FDF5E6;            color: var(--gold-primary); border: 1px solid var(--gold-primary); }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .card-title.red  { font-size: 24px; color: var(--red-alert); }
+  .card-title.dark { font-size: 20px; color: var(--gray-dark); }
+
+  .card-body {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--gray-dark);
+    margin-bottom: 18px;
+  }
+  .card-body strong { color: var(--red-alert); }
+
+  .detail-box {
+    background: var(--red-light);
+    border: 1px solid #e8b0ad;
+    border-radius: 3px;
+    padding: 14px 18px;
+  }
+  .detail-box h3 {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--red-alert);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+  }
+  .detail-box ul { list-style: none; }
+  .detail-box ul li {
+    font-size: 13px;
+    color: var(--gray-dark);
+    padding: 3px 0;
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .detail-box ul li::before { content: "—"; color: var(--red-alert); font-weight: 700; flex-shrink: 0; }
+
+  /* COUNTDOWN */
+  .countdown-wrapper {
+    background: var(--off-white);
+    border: 1px solid var(--gray-light);
+    border-radius: 3px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .countdown-label {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-medium);
+    margin-bottom: 4px;
+  }
+  .countdown-timer {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--red-alert);
+    letter-spacing: 2px;
+  }
+  .meta-label { font-size: 10px; color: var(--gray-medium); text-transform: uppercase; letter-spacing: 0.8px; }
+  .meta-val   { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--gray-dark); }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 11px 26px;
+    border-radius: 3px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+    margin-right: 10px;
+  }
+  .btn.primary { background: var(--green-primary); color: var(--white); }
+  .btn.primary:hover { background: var(--green-dark); }
+  .btn.sec { background: transparent; border: 2px solid var(--green-primary); color: var(--green-primary); }
+  .btn.sec:hover { background: var(--green-light); }
+
+  /* FOOTER */
+  .footer {
+    background: var(--gray-dark);
+    color: var(--gray-medium);
+    text-align: center;
+    padding: 18px 48px;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  .footer strong { color: var(--white); font-family: var(--font-display); font-size: 12px; display: block; margin-bottom: 2px; }
+
+  /* APRIL FOOLS OVERLAY */
+  .af-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.80);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  .af-overlay.active { display: flex; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  .af-card {
+    background: var(--white);
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    padding: 48px 40px 40px;
+    box-shadow: 0 16px 64px rgba(0,0,0,0.4);
+    animation: popIn 0.45s cubic-bezier(0.175,0.885,0.32,1.275);
+    position: relative;
+    overflow: hidden;
+  }
+  @keyframes popIn { from{transform:scale(0.78);opacity:0} to{transform:scale(1);opacity:1} }
+
+  .af-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #006837 0%, #C8962A 33%, #2E6DA4 66%, #006837 100%);
+  }
+  .af-logo { height: 28px; margin-bottom: 22px; }
+  .af-title {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--green-primary);
+    margin-bottom: 4px;
+  }
+  .af-subtitle {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--gray-medium);
+    margin-bottom: 22px;
+  }
+  .af-message {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--gray-dark);
+    margin-bottom: 28px;
+  }
+  .af-message strong { color: var(--green-primary); }
+  .af-close {
+    background: var(--green-primary);
+    color: var(--white);
+    border: none;
+    padding: 11px 32px;
+    border-radius: 3px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .af-close:hover { background: var(--green-dark); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <img src="https://www.eldoradobrasil.com.br/wp-content/uploads/2021/06/logo-eldorado-brasil.png"
+       alt="Eldorado Brasil"
+       onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class=\'header-wordmark\'>Eldorado <span>Brasil</span></div>')">
+</div>
+
+<!-- ALERT BANNER -->
+<div class="alert-banner">
+  <span class="blink"></span>
+  Security Alert — Immediate Action Required
+  <span class="blink"></span>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="card red-border">
+    <div class="tag red">Phishing Simulation Detected</div>
+    <h1 class="card-title red">You clicked a simulated phishing link.</h1>
+    <p class="card-body">
+      The email you received regarding updated oil surcharges and revised North American freight rates from
+      <strong>TransAtlantic Logistics Partners</strong> was <strong>not real</strong>. It was a
+      <strong>controlled phishing simulation</strong> run by Eldorado Brasil's IT Security team.
+      Your click has been logged and reported.
+    </p>
+    <div class="detail-box">
+      <h3>What happened</h3>
+      <ul>
+        <li>You received a spoofed email from a fake logistics domain</li>
+        <li>The email used urgent business language to lower your guard</li>
+        <li>You clicked the link without verifying the sender or the URL</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card gold-border">
+    <div class="tag gold">Mandatory Action Required</div>
+    <h2 class="card-title dark">Complete your phishing awareness training</h2>
+    <p class="card-body" style="margin-bottom:0">
+      You are required to complete Eldorado Brasil's <strong style="color:var(--gray-dark)">Phishing Awareness &amp; Email Security Training</strong>
+      module (2 hours) within 48 hours. Failure to complete will be escalated to your manager.
+    </p>
+    <br>
+    <div class="countdown-wrapper">
+      <div>
+        <div class="countdown-label">Time remaining</div>
+        <div class="countdown-timer" id="timer">47:59:59</div>
+      </div>
+      <div style="text-align:right">
+        <div class="meta-label">Duration</div>
+        <div class="meta-val">2 hours</div>
+        <div class="meta-label" style="margin-top:8px">Deadline</div>
+        <div class="meta-val" style="font-size:13px;color:var(--red-alert)" id="deadline-date">—</div>
+      </div>
+    </div>
+    <a href="#" class="btn primary" onclick="return false;">Begin Training Module</a>
+    <a href="#" class="btn sec" onclick="return false;">IT Security Policy</a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>Eldorado Brasil — IT Security &amp; Compliance</strong>
+  Authorized internal phishing simulation &nbsp;|&nbsp; Questions? Contact IT Security &nbsp;|&nbsp; © 2025 Eldorado Brasil
+</div>
+
+<!-- APRIL FOOLS OVERLAY — 40 seconds -->
+<div class="af-overlay" id="afOverlay">
+  <div class="af-card">
+    <div class="af-bar"></div>
+    <img class="af-logo"
+         src="https://www.eldoradobrasil.com.br/wp-content/uploads/2021/06/logo-eldorado-brasil.png"
+         alt="Eldorado Brasil"
+         onerror="this.style.display='none'">
+    <h2 class="af-title">April Fools!</h2>
+    <p class="af-subtitle">No training. No deadline. No IT report.</p>
+    <p class="af-message">
+      You have been pranked by your colleagues.<br>
+      There is <strong>no phishing simulation</strong>, no mandatory module,
+      and no one from IT Security is watching.<br><br>
+      <strong>Happy April Fools' Day</strong> from the North America team.
+    </p>
+    <button class="af-close" onclick="document.getElementById('afOverlay').classList.remove('active')">
+      Close
+    </button>
+  </div>
+</div>
+
+<script>
+  const deadlineMs = Date.now() + (48 * 60 * 60 * 1000);
+  const dl = new Date(deadlineMs);
+  document.getElementById('deadline-date').textContent = dl.toLocaleDateString('en-US', {
+    month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+  });
+  function tick() {
+    const r = Math.max(0, deadlineMs - Date.now());
+    const h = Math.floor(r / 3600000);
+    const m = Math.floor((r % 3600000) / 60000);
+    const s = Math.floor((r % 60000) / 1000);
+    document.getElementById('timer').textContent =
+      String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+
+  setTimeout(() => document.getElementById('afOverlay').classList.add('active'), 40000);
+</script>
+</body>
+</html>
